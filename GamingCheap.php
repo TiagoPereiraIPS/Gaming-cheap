@@ -17,13 +17,15 @@ class GamingCheap {
     {
         $this->mGameName = $pGameName;
 
-        //criar url valido consoante jogo dado
+        //criar url valido consoante o jogo dado
         $this->mBoardValidUrl = $this->buildValidUrl();
 
         //retornar html da página de resultados do jogo inserido
         $this->mBoardHtmlForValidUrl = $this->buildHtmlOfSearchPage(); //method returns null, but it built the data member with the proper values
 
         //$this->buildHyperlinksForBoardValidUrlsForImages();
+        $esfwsef = AmUtil::extractFirstTenResultsOfGamePrices($this->mBoardHtmlForValidUrl, "offers-table-row", $pGameName);
+        var_dump($esfwsef);
     }//__construct
 
     public function buildValidUrl()

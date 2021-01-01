@@ -1,5 +1,7 @@
 <?php
 
+require_once "RegistoJogoPreco.php";
+
 class AmUtil{
     const IMPOSSIBLE_MONTH = -1;
     const BOT_SIGNATURE = "For educational tests only";
@@ -94,6 +96,58 @@ class AmUtil{
         }//if
         return false;
     }//consumeUrl
+
+    public static function extractFirstTenResultsOfGamePrices(
+        string $pStrHtmlSourceCode,
+        string $pClassName,
+        string $pGameName
+    ) /*: array */
+    {
+        $aCount = 0;
+        $aRet = []; //the collection of all "div" elements found
+        $oDom = new DOMDocument();
+        if ($oDom){
+            //@ - "silencer"
+            @$oDom->loadHTML($pStrHtmlSourceCode);
+            /*
+             * array of "a" elements
+             */
+            $as = $oDom->getElementsByTagName('div');
+
+            foreach ($as as $someAElement){
+                $strClass = trim($someAElement->getAttribute('class'));
+
+                if ($strClass === $pClassName && $aCount<10) {
+                    $aCount++;
+                    if (strpos(str_replace(' ', '', $someAElement->childNodes[7]->childNodes[1]->textContent), 'Pricewithcoupon')) {
+                        $oGameRegister = new RegistoJogoPreco(
+                            $pGameName,
+                            trim($someAElement->childNodes[1]->childNodes[1]->textContent),
+                            trim($someAElement->childNodes[3]->textContent),
+                            trim($someAElement->childNodes[5]->textContent),
+                            trim($someAElement->childNodes[7]->childNodes[1]->childNodes[0]->textContent),
+                            trim($someAElement->childNodes[7]->childNodes[1]->childNodes[3]->textContent),
+                            trim($someAElement->childNodes[7]->childNodes[3]->childNodes[1]->textContent),
+                            trim($someAElement->childNodes[7]->childNodes[3]->childNodes[3]->textContent)
+                        );
+                    } else {
+                        $oGameRegister = new RegistoJogoPreco(
+                            $pGameName,
+                            trim($someAElement->childNodes[1]->childNodes[1]->textContent),
+                            trim($someAElement->childNodes[3]->textContent),
+                            trim($someAElement->childNodes[5]->textContent),
+                            null,
+                            null,
+                            null,
+                            trim($someAElement->childNodes[7]->childNodes[1]->textContent)
+                        );
+                    }
+                    $aRet[] = $oGameRegister;
+                }
+            }//foreach
+        }//if
+        return $aRet;
+    }//extractFirstTenResultsOfSpecificClassType
 
     /*
      * receives HTML source code
