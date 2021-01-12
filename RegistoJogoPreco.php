@@ -9,7 +9,6 @@ class RegistoJogoPreco
     private $mOnlineStore;
     private $mPlatform;
     private $mGameVersion;
-    private $mCouponText;
     private $mCouponPercentageAndName;
     private $mPriceWithoutCoupon;
     private $mActualPrice;
@@ -19,7 +18,6 @@ class RegistoJogoPreco
         string $pOnlineStore,
         string $pPlatform,
         string $pGameVersion,
-        string $pCouponText = null,
         string $pCouponPercentageAndName = null,
         string $pPriceWithoutCoupon = null,
         string $pActualPrice
@@ -29,7 +27,6 @@ class RegistoJogoPreco
         $this->mOnlineStore = $pOnlineStore;
         $this->mPlatform = $pPlatform;
         $this->mGameVersion = $pGameVersion;
-        $this->mCouponText = $pCouponText;
         $this->mCouponPercentageAndName = $pCouponPercentageAndName;
         $this->mPriceWithoutCoupon = $pPriceWithoutCoupon;
         $this->mActualPrice = $pActualPrice;

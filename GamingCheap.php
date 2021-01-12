@@ -4,8 +4,8 @@ require_once "AmUtil.php";
 
 class GamingCheap {
     //data member
-    private $mGameName; //nome do jogo a pesquisar e.g. "Tekken 7"
-    private $mBoardValidUrl; //variavel para validar um Url e.g. "https://www.allkeyshop.com/blog/buy-tekken-7-cd-key-compare-prices/"
+    private $mGameName; //nome do jogo a pesquisar e.g. "f1 2020"
+    private $mBoardValidUrl; //variavel para validar um Url e.g. "https://www.allkeyshop.com/blog/buy-f1-2020-cd-key-compare-prices/"
     private $mBoardHtmlForValidUrl; //html do url pretendido
 
     const BASE_URL_PREFIX = "https://www.allkeyshop.com/blog/buy-";
@@ -35,6 +35,7 @@ class GamingCheap {
             "-",
             $this->mGameName
         ));
+
         return self::BASE_URL_PREFIX.$validGameName.self::BASE_URL_SUFIX;
     }//buildValidUrl
 

@@ -125,7 +125,6 @@ class AmUtil{
                             trim($someAElement->childNodes[1]->childNodes[1]->textContent),
                             trim($someAElement->childNodes[3]->textContent),
                             trim($someAElement->childNodes[5]->textContent),
-                            trim($someAElement->childNodes[7]->childNodes[1]->childNodes[0]->textContent),
                             trim($someAElement->childNodes[7]->childNodes[1]->childNodes[3]->textContent),
                             trim($someAElement->childNodes[7]->childNodes[3]->childNodes[1]->textContent),
                             trim($someAElement->childNodes[7]->childNodes[3]->childNodes[3]->textContent)
@@ -136,7 +135,6 @@ class AmUtil{
                             trim($someAElement->childNodes[1]->childNodes[1]->textContent),
                             trim($someAElement->childNodes[3]->textContent),
                             trim($someAElement->childNodes[5]->textContent),
-                            null,
                             null,
                             null,
                             trim($someAElement->childNodes[7]->childNodes[1]->textContent)
