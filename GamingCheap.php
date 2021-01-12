@@ -11,25 +11,23 @@ class GamingCheap {
     const BASE_URL_PREFIX = "https://www.allkeyshop.com/blog/buy-";
     const BASE_URL_SUFIX = "-cd-key-compare-prices/";
 
-    public function __construct(
-        string $pGameName
-    )
-    {
+    public function __construct(string $pGameName){
         $this->mGameName = $pGameName;
+    }//__construct
 
+    public function retrieveData(){
         //criar url valido consoante o jogo dado
         $this->mBoardValidUrl = $this->buildValidUrl();
 
         //retornar html da página de resultados do jogo inserido
         $this->mBoardHtmlForValidUrl = $this->buildHtmlOfSearchPage(); //method returns null, but it built the data member with the proper values
 
-        //$this->buildHyperlinksForBoardValidUrlsForImages();
-        $esfwsef = AmUtil::extractFirstTenResultsOfGamePrices($this->mBoardHtmlForValidUrl, "offers-table-row", $pGameName);
-        var_dump($esfwsef);
-    }//__construct
+        //retornar os 10 primeiros resultados
+        $dados = AmUtil::extractFirstTenResultsOfGamePrices($this->mBoardHtmlForValidUrl, "offers-table-row", $this->mGameName);
+        return $dados;
+    }
 
-    public function buildValidUrl()
-    {
+    private function buildValidUrl(){
         $validGameName = strtolower(str_replace(
             " ",
             "-",
@@ -39,7 +37,7 @@ class GamingCheap {
         return self::BASE_URL_PREFIX.$validGameName.self::BASE_URL_SUFIX;
     }//buildValidUrl
 
-    public function buildHtmlOfSearchPage(){
+    private function buildHtmlOfSearchPage() {
         return AmUtil::consumeUrl($this->mBoardValidUrl);
     }//buildHtmlOfSearchPage
 } //GamingCheap
