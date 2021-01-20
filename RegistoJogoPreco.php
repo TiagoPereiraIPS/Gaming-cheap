@@ -5,13 +5,13 @@ require_once "AmUtil.php";
 class RegistoJogoPreco
 {
     //data member
-    private $mGame;
-    private $mOnlineStore;
-    private $mPlatform;
-    private $mGameVersion;
-    private $mCouponPercentageAndName;
-    private $mPriceWithoutCoupon;
-    private $mActualPrice;
+    public $mGame;
+    public $mOnlineStore;
+    public $mPlatform;
+    public $mGameVersion;
+    public $mCouponPercentageAndName;
+    public $mPriceWithoutCoupon;
+    public $mActualPrice;
 
     public function __construct(
         string $pGame,
