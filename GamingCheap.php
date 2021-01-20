@@ -23,7 +23,7 @@ class GamingCheap {
         $this->mBoardHtmlForValidUrl = $this->buildHtmlOfSearchPage(); //method returns null, but it built the data member with the proper values
 
         //retornar os 10 primeiros resultados
-        $dados = AmUtil::extractFirstTenResultsOfGamePrices($this->mBoardHtmlForValidUrl, "offers-table-row", $this->mGameName);
+        $dados = AmUtil::extractFirstTenResultsOfGamePrices($this->mBoardHtmlForValidUrl, "offers-table-row x-offer", $this->mGameName);
         return $dados;
     }
 
