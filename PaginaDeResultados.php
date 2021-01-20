@@ -1,5 +1,16 @@
-<!doctype html>
+<?php
 
+require_once "GamingCheap.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['jogo'];
+    $bot = new GamingCheap($name);
+    $dados = $bot->retrieveData();
+}
+
+?>
+
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -26,7 +37,7 @@
             -moz-user-select: none;
             user-select: none;
         }
-        
+
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
@@ -52,8 +63,8 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" aria-label="Search">
+                    <form class="d-flex" method="POST">
+                        <input class="form-control me-2" type="search" aria-label="Search" name="jogo">
                         <button class="btn btn-outline-light" type="submit" name="pesquisar">Pesquisar</button>
                     </form>
                 </div>
@@ -75,22 +86,27 @@
             <div class="container">
 
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
-                    <div class="col">
-                        <div class="card shadow-sm">
+                    <?php foreach ($dados as $registo) { ?>
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                
 
-
-                            <div class="card-body">
-                                <p class="card-text"><span style="font-weight:bold;"></span></p>
-                                <p class="card-text"><span style="font-weight:bold;">Loja online: </span></p>
-                                <p class="card-text"><span style="font-weight:bold;">Plataforma: </span></p>
-                                <p class="card-text"><span style="font-weight:bold;">Versão do jogo: </span> </p>
-                                <p class="card-text"><span style="font-weight:bold;">Cupão: </span> </p>
-                                <p class="card-text"><span style="font-weight:bold;">Preço sem cupão: </span></p>
-                                <p class="card-text"><span style="font-weight:bold;">Preço final: </span></p>
+                                <div class="card-body">
+                                    <p class="card-text"><span style="font-weight:bold;"><?php echo $registo->{'mGame'} ?></span></p>
+                                    <p class="card-text"><span style="font-weight:bold;">Loja online: </span><?php echo $registo->{'mOnlineStore'} ?></p>
+                                    <p class="card-text"><span style="font-weight:bold;">Plataforma: </span><?php echo $registo->{'mPlatform'} ?></p>
+                                    <p class="card-text"><span style="font-weight:bold;">Versão do jogo: </span><?php echo $registo->{'mGameVersion'} ?></p>
+                                    <?php if (empty($registo->{'mCouponPercentageAndName'})) {
+                                        echo '<p class="card-text"><span style="font-weight:bold;">Cupão inexistente </span></p>';
+                                    } else { ?>
+                                        <p class="card-text"><span style="font-weight:bold;">Cupão: </span><?php echo $registo->{'mCouponPercentageAndName'} ?></p>
+                                        <p class="card-text"><span style="font-weight:bold;">Preço sem cupão: </span><?php echo $registo->{'mPriceWithoutCoupon'} ?></p>
+                                    <?php  }  ?>
+                                    <p class="card-text"><span style="font-weight:bold;">Preço final: </span><?php echo $registo->{'mActualPrice'} ?></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
+                    <?php } ?>
                 </div>
             </div>
         </div>
