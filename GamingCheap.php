@@ -10,6 +10,7 @@ class GamingCheap {
 
     const BASE_URL_PREFIX = "https://www.allkeyshop.com/blog/buy-";
     const BASE_URL_SUFIX = "-cd-key-compare-prices/";
+    const DOWNLOAD_FOLDER = "./ImagensJogos/";
 
     public function __construct(string $pGameName){
         $this->mGameName = $pGameName;
@@ -24,6 +25,10 @@ class GamingCheap {
 
         //retornar os 10 primeiros resultados
         $dados = AmUtil::extractFirstTenResultsOfGamePrices($this->mBoardHtmlForValidUrl, "offers-table-row x-offer", $this->mGameName);
+
+        //faz download da imagem do jogo e retorna o nome e extensão da mesma
+        $pathImagem = AmUtil::downloadImagemJogo(self::DOWNLOAD_FOLDER, $this->mBoardHtmlForValidUrl, "mx-auto d-block img-fluid", $this->mGameName);
+
         return $dados;
     }
 
