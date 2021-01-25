@@ -45,7 +45,6 @@ class GamesMemory
                 $this->mLastErrorCode,
                 $this->mLastErrorMsg
             );
-            echo $strMsg;
         }
     } //errorFb
 
