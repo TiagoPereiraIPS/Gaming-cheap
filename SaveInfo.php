@@ -14,6 +14,7 @@ class UrlsMemory
         COPAO VARCHAR(20),
         PRECO VARCHAR(20),
         PRECOCOPAO VARCHAR(20),
+        DATAREGISTO VARCHAR(19),
         PRIMARY KEY (NOMEJOGO, NOMELOJA, NOMEPLATAFORMA, VERSAOJOGO));";
 
     private $mLastErrorCode, $mLastErrorMsg;
@@ -79,6 +80,7 @@ class UrlsMemory
         $pPrecoCopao
 
     ) {
+        $data = date("d/m/Y H:i:s");
         $q = "INSERT INTO ACA.LOJA_JOGO_PLATAFORMA  VALUES (
             '$pNomeJogo',
             '$pNomeLoja',
@@ -86,7 +88,8 @@ class UrlsMemory
             '$pVersaoJogo',
             '$pCopao',
             '$pPreco',
-            '$pPrecoCopao'
+            '$pPrecoCopao', 
+            '$data'
             );";
 
         $this->mDb->query($q);
@@ -107,15 +110,48 @@ class UrlsMemory
 
         return $aAllRecords;
     } //selectAllUrls
-}
 
-/*
-$o = new UrlsMemory();
-$o->install();
-$o->insertUrl("DOOM", "GAMEStore", "STEAM", "DELUXE", "5% WTFAF", "100€", "95€");
-$o->insertUrl("SKYRIM", "GAMEStore", "STEAM", "DELUXE", "5% WTFAF", "100€", "95€");
-$o->insertUrl("DOOM", "GOG", "STEAM", "DELUXE", "5% WTFAF", "100€", "95€");
-$o->insertUrl("DOOM", "GAMEStore", "EPIC", "DELUXE", "5% WTFAF", "100€", "95€");
-$all = $o->selectAllUrls();
-var_dump($all);
-*/
+    public function alreadyThere(
+        $pNomeJogo,
+        $pNomeLoja,
+        $pNomePlataforma,
+        $pVersaoJogo
+    ) {
+        $q = "SELECT * FROM ACA.LOJA_JOGO_PLATAFORMA WHERE
+         NOMEJOGO = '$pNomeJogo' AND
+         NOMELOJA = '$pNomeLoja' AND
+         NOMEPLATAFORMA = '$pNomePlataforma' AND
+         VERSAOJOGO = '$pVersaoJogo';";
+
+        $r = $this->mDb->query($q);
+        $this->updateErrors();
+        $this->errorFb();
+
+        return mysqli_num_rows($r) > 0;
+    }
+
+    public function update(
+        $pNomeJogo,
+        $pNomeLoja,
+        $pNomePlataforma,
+        $pVersaoJogo,
+        $pCopao,
+        $pPreco,
+        $pPrecoCopao
+    ) {
+        $data = date("d/m/Y H:i:s");
+        $q = "UPDATE ACA.LOJA_JOGO_PLATAFORMA SET
+        COPAO = '$pCopao',
+        PRECO = '$pPreco',
+        PRECOCOPAO = '$pPrecoCopao',
+        DATAREGISTO = '$data' WHERE
+        NOMEJOGO = '$pNomeJogo' AND
+        NOMELOJA = '$pNomeLoja' AND
+        NOMEPLATAFORMA = '$pNomePlataforma' AND
+        VERSAOJOGO = '$pVersaoJogo';";
+
+        $r = $this->mDb->query($q); //retorna true se funcionar false se n
+        $this->updateErrors();
+        $this->errorFb();
+    }
+}
