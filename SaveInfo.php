@@ -110,6 +110,19 @@ class UrlsMemory
 
         return $aAllRecords;
     } //selectAllUrls
+    
+    public function selectUniqueNames()
+    {
+        $q = "SELECT DISTINCT NOMEJOGO from ACA.LOJA_JOGO_PLATAFORMA;";
+
+        $r = $this->mDb->query($q);
+        $this->updateErrors();
+        $this->errorFb();
+
+        $aAllRecords = mysqli_fetch_all($r, MYSQLI_ASSOC);
+
+        return $aAllRecords;
+    } //selectAllUrls
 
     public function alreadyThere(
         $pNomeJogo,
@@ -128,7 +141,7 @@ class UrlsMemory
         $this->errorFb();
 
         return mysqli_num_rows($r) > 0;
-    }
+    } //alreadyThere
 
     public function update(
         $pNomeJogo,
@@ -153,5 +166,5 @@ class UrlsMemory
         $r = $this->mDb->query($q); //retorna true se funcionar false se n
         $this->updateErrors();
         $this->errorFb();
-    }
+    } //update
 }
