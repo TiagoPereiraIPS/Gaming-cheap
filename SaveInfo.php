@@ -3,7 +3,7 @@
 class UrlsMemory
 {
     const CREATE_SCHEMA_MEMORY =
-    "CREATE SCHEMA IF NOT EXISTS aca;";
+    "CREATE SCHEMA IF NOT EXISTS ACA;";
 
     const CREATE_TABLE =
     "CREATE TABLE IF NOT EXISTS ACA.LOJA_JOGO_PLATAFORMA(
@@ -55,7 +55,7 @@ class UrlsMemory
         $this->mLastErrorMsg = mysqli_error($this->mDb);
         $this->mErrorCodes[] = $this->mLastErrorCode;
         $this->mErrorMsgs[] = $this->mLastErrorMsg;
-    } //updateError
+    } //updateErrors
 
     public function install()
     {
@@ -70,7 +70,7 @@ class UrlsMemory
         } //if
     } //install
 
-    public function insertUrl(
+    public function insertGames(
         $pNomeJogo,
         $pNomeLoja,
         $pNomePlataforma,
@@ -96,9 +96,9 @@ class UrlsMemory
 
         $this->updateErrors();
         $this->errorFb();
-    } //insertUrl
+    } //insertGames
 
-    public function selectAllUrls()
+    public function selectAllGames()
     {
         $q = "SELECT * FROM ACA.LOJA_JOGO_PLATAFORMA;";
 
@@ -109,7 +109,7 @@ class UrlsMemory
         $aAllRecords = mysqli_fetch_all($r, MYSQLI_ASSOC);
 
         return $aAllRecords;
-    } //selectAllUrls
+    } //selectAllGames
     
     public function selectUniqueNames()
     {
@@ -122,7 +122,7 @@ class UrlsMemory
         $aAllRecords = mysqli_fetch_all($r, MYSQLI_ASSOC);
 
         return $aAllRecords;
-    } //selectAllUrls
+    } //selectUniqueNames
 
     public function alreadyThere(
         $pNomeJogo,
