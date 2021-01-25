@@ -1,6 +1,6 @@
 <?php
 
-class UrlsMemory
+class GamesMemory
 {
     const CREATE_SCHEMA_MEMORY =
     "CREATE SCHEMA IF NOT EXISTS ACA;";
