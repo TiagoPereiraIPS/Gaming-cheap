@@ -1,8 +1,8 @@
 body {
-  background-image: url(illustration-of-geometric-shapes-with-colorful-laser-lights.jpg);
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+    background-image: url(illustration-of-geometric-shapes-with-colorful-laser-lights.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 h1 {
@@ -11,4 +11,10 @@ h1 {
 
 li {
     color: white;
+}
+
+#ImagemJogo img {
+    margin-left: 5%;
+    margin-top: 50%;
+    display: block;
 }
