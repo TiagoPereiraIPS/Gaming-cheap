@@ -97,6 +97,44 @@ class AmUtil{
         return false;
     }//consumeUrl
 
+    public static function downloadImagemJogo(
+        string $pPathBase,
+        string $pStrHtmlSourceCode,
+        string $pClassName,
+        string $pGameName
+    ){
+        $oDom = new DOMDocument();
+        if ($oDom) {
+            //@ - "silencer"
+            @$oDom->loadHTML($pStrHtmlSourceCode);
+            /*
+             * array of "a" elements
+             */
+            $as = $oDom->getElementsByTagName('img');
+
+            foreach ($as as $someAElement) {
+                $strClass = trim($someAElement->getAttribute('class'));
+                if ($strClass === $pClassName) {
+                    $bytesImg = AmUtil::consumeUrl($someAElement->getAttribute('src'));
+                }
+            }
+
+            $strFileNameSanitized = AmUtil::sanitizeStringForFileSystem(
+                $pGameName
+            );
+
+            if(!empty($bytesImg)){
+                file_put_contents(
+                //apenas colocámos a extensão jpg como predifinição, pois o site apenas possui imagens de jogos jpg
+                    $pPathBase.$strFileNameSanitized.".jpg",
+                    $bytesImg,
+                    LOCK_EX
+                );
+            }
+        }
+        return $strFileNameSanitized.".jpg";
+    }
+
     public static function extractFirstTenResultsOfGamePrices(
         string $pStrHtmlSourceCode,
         string $pClassName,
