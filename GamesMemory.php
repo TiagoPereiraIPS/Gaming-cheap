@@ -1,4 +1,5 @@
 <?php
+require_once ("config.php");
 
 class GamesMemory
 {
@@ -21,14 +22,9 @@ class GamesMemory
     private $mErrorCodes, $mErrorMsgs;
     private $mDb; //fundamental!
 
-    const HOST = "localhost";
-    const USER = "ACA";
-    const PASS = "kkiilleerr";
-    const PORT = 3306;
-
     public function __construct()
     {
-        $this->mDb = mysqli_connect(self::HOST, self::USER, self::PASS, "", self::PORT);
+        $this->mDb = mysqli_connect(HOST, USER, PASS, "", PORT);
         $this->mLastErrorCode = mysqli_connect_errno();
         $this->mLastErrorMsg = mysqli_connect_error();
         $this->mErrorCodes[] = $this->mLastErrorCode;
@@ -45,6 +41,7 @@ class GamesMemory
                 $this->mLastErrorCode,
                 $this->mLastErrorMsg
             );
+            //echo $strMsg;
         }
     } //errorFb
 
