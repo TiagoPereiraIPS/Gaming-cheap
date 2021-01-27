@@ -114,8 +114,9 @@ class GamesMemory
         $r = $this->mDb->query($q);
         $this->updateErrors();
         $this->errorFb();
-
-        $aAllRecords = mysqli_fetch_all($r, MYSQLI_ASSOC);
+        if($r){
+            $aAllRecords = mysqli_fetch_all($r, MYSQLI_ASSOC);
+        }
 
         return $aAllRecords;
     } //selectUniqueNames
