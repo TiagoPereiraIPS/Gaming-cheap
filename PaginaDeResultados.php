@@ -53,9 +53,8 @@ foreach ($dados as $jogo){
     <title>Gaming Cheap Página de Resultados</title>
     <link rel="icon" href="Gaming Cheap.png">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
-
-
-
+    
+    
     <!-- Bootstrap core CSS -->
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -97,6 +96,7 @@ foreach ($dados as $jogo){
                         <input class="form-control me-2" type="search" aria-label="Search" name="jogo">
                         <button class="btn btn-outline-light" type="submit" name="pesquisar">Pesquisar</button>
                     </form>
+                    <button class="btn btn-outline-light" style="color: forestgreen;" onclick="gerarPDF()"> Print </button>
                 </div>
             </div>
         </nav>
@@ -115,7 +115,7 @@ foreach ($dados as $jogo){
         <div class="album py-5">
             <div class="container">
 
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3 print-me">
                     <?php foreach ($dados as $registo) { ?>
                         <div class="col">
                             <div class="card shadow-sm">
@@ -148,8 +148,24 @@ foreach ($dados as $jogo){
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
     <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+   
+    <!-- PDF plugin-->
+    <script src="html2pdf.bundle.min.js"></script>
 
-
+    <script>
+        function gerarPDF(){
+            var x = document.getElementsByClassName("print-me")[0];
+            console.log(x);
+            var opt = {
+                margin:       0.3,
+                filename:     'Resultados.pdf',
+                image:        { type: 'jpeg', quality: 1 },
+                html2canvas:  { scale: 4 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(x).save();
+        }
+    </script>
 </body>
 
 </html>
